@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #0f0c29;
+    /* Qorong'u kosmik fon, ustiga blob'lar tushadi */
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* Jilvalanuvchi Orqa Fon Animatsiyalari (Bloblar) */
+.bg-blobs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    filter: blur(80px); /* Katta shaffoflik effekti */
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    animation: float 20s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+.blob-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 0, 128, 0.6); /* Pushti/Qizil */
+    top: -10%;
+    left: -10%;
+    animation-delay: 0s;
+}
+
+.blob-2 {
+    width: 500px;
+    height: 500px;
+    background: rgba(74, 0, 224, 0.6); /* Siyohrang/Binafsha */
+    bottom: -20%;
+    right: -10%;
+    animation-delay: -5s;
+}
+
+.blob-3 {
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 65, 108, 0.5); /* Qizg'ish pushti */
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(100px, 50px) scale(1.2); }
+    100% { transform: translate(-50px, 100px) scale(0.9); }
+}
+
+/* Asosiy Konteyner */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 450px;
+    z-index: 1; /* Bloblardan tepada */
+}
+
+@media (min-width: 800px) {
+    .container {
+        flex-direction: row;
+        max-width: 900px;
+        align-items: center; /* Markazlashtirish */
+    }
+    .profile-card {
+        flex: 1;
+    }
+    .links-wrapper {
+        flex: 1.5;
+    }
+}
+
+/* Profil Kartasi (Glassmorphism) */
+.profile-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 35px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+
+/* Rasm atrofi gradient ramka */
+.avatar-wrapper {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+}
+
+.avatar-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ff0080, #7928ca, #ff4d4d, #4A00E0);
+    background-size: 300% 300%;
+    z-index: -1;
+    animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #1a1a2e;
+}
+
+.name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    background: linear-gradient(to right, #ffffff, #f0c3ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.bio {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* Ijtimoiy Tarmoqlar */
+.social-footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(45deg, #ff0080, #7928ca);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.social-icon:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 0, 128, 0.4);
+    border-color: transparent;
+}
+
+.social-icon:hover::before {
+    opacity: 1;
+}
+
+/* Havolalar qismi */
+.links-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Glassmorphism Tugmalar */
+.glass-btn {
+    position: relative;
+    display: block;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 20px 25px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 500;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.btn-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-content i {
+    font-size: 1.5rem;
+    width: 25px;
+    text-align: center;
+    background: linear-gradient(45deg, #ff9a9e, #fecfef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.btn-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 1;
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.glass-btn:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.glass-btn:hover .btn-glow {
+    width: 400px;
+    height: 400px;
+}
+
+/* Asosiy Ajratib ko'rsatilgan tugma (Telegram) */
+.highlight-btn {
+    background: linear-gradient(135deg, rgba(255, 0, 128, 0.15), rgba(121, 40, 202, 0.15));
+    border-color: rgba(255, 0, 128, 0.4);
+}
+
+.highlight-btn .btn-content i {
+    background: linear-gradient(45deg, #fff, #ffcfef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.highlight-btn:hover {
+    background: linear-gradient(135deg, rgba(255, 0, 128, 0.4), rgba(121, 40, 202, 0.4));
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 15px 35px rgba(255, 0, 128, 0.4);
+}
+
+/* Kirib kelish animatsiyalari */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-card { opacity: 0; animation: slideUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s forwards; }
+.glass-btn { opacity: 0; animation: slideUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
+.glass-btn:nth-child(1) { animation-delay: 0.2s; }
+.glass-btn:nth-child(2) { animation-delay: 0.3s; }
+.glass-btn:nth-child(3) { animation-delay: 0.4s; }
+.glass-btn:nth-child(4) { animation-delay: 0.5s; }
